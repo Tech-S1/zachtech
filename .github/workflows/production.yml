@@ -1,0 +1,53 @@
+name: Production Build
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install Deps
+        run: |
+          npm ci
+      - name: Build App
+        run: |
+          npm run build
+      - name: Deploy to S3
+        uses: jakejarvis/s3-sync-action@master
+        with:
+          args: --acl public-read --delete
+        env:
+          AWS_S3_BUCKET: ${{ secrets.AWS_PRODUCTION_BUCKET_NAME }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: "eu-west-2"
+          SOURCE_DIR: "build"
+      - name: Invalidate CloudFront
+        uses: chetan/invalidate-cloudfront-action@v2
+        env:
+          DISTRIBUTION: ${{ secrets.DISTRIBUTION }}
+          PATHS: "/index.html"
+          AWS_REGION: "eu-west-2"
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      # - name: Create Sentry release
+      #   uses: getsentry/action-release@v1
+      #   env:
+      #     SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+      #     SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+      #     SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+      #   with:
+      #     environment: production
+      #     sourcemaps: "build/static/js"
+      #     url_prefix: "~/static/js"
