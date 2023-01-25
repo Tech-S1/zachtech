@@ -22,6 +22,7 @@ function TerminalBar() {
         <Box padding='3'>
           <Flex gap='2'>
             <Spacer />
+            {/* TODO: Update to change page name */}
             <Text color='white'>Home</Text>
             <Spacer />
           </Flex>

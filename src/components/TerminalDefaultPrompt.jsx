@@ -1,18 +1,44 @@
-/* eslint-disable react/jsx-one-expression-per-line */
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Text, Mark,
+  Mark,
 } from '@chakra-ui/react';
 
-function TerminalDefaultPrompt({ location, text }) {
+function PromptBody({ location }) {
   return (
-    <Text><Mark color='whiteAlpha.800'>in</Mark> <Mark color='pink.300'>~/{location}</Mark> <Mark color='whiteAlpha.800'>on</Mark> <Mark color='green.400'>zachtech.dev</Mark> <Mark fontWeight='bold' color='purple.500'>-&gt;</Mark>  {text}</Text>
+    <>
+      <Mark color='whiteAlpha.800'>in</Mark>
+      {' '}
+      <Mark color='pink.300'>
+        ~/
+        {location}
+      </Mark>
+      {' '}
+      <Mark color='whiteAlpha.800'>on</Mark>
+      {' '}
+      <Mark color='green.400'>zachtech.dev</Mark>
+    </>
   );
 }
-
-TerminalDefaultPrompt.propTypes = {
+PromptBody.propTypes = {
   location: PropTypes.string.isRequired,
-  text: PropTypes.string.isRequired,
 };
-export default TerminalDefaultPrompt;
+
+function PromptPointer() {
+  return <Mark fontWeight='bold' color='purple.500'>-&gt;</Mark>;
+}
+
+function PromptInput({ children }) {
+  return (
+    <>
+      <PromptPointer />
+      {' '}
+      {children}
+    </>
+  );
+}
+PromptInput.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
+export { PromptBody, PromptPointer, PromptInput };
