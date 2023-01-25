@@ -14,6 +14,11 @@ function TerminalTabBar() {
           Home
         </Box>
       </Link>
+      <Link to='/profile'>
+        <Box color='white' px='2'>
+          Profile
+        </Box>
+      </Link>
     </Flex>
   );
 }

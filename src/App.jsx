@@ -6,12 +6,17 @@ import {
 } from 'react-router-dom';
 import theme from './theme';
 import Home from './pages/Home';
+import Profile from './pages/Profile';
 
 // TODO: Update to make more dynamic with page tabs and header
 const router = createBrowserRouter([
   {
     path: '/',
     element: <Home />,
+  },
+  {
+    path: '/profile',
+    element: <Profile />,
   },
 ]);
 
