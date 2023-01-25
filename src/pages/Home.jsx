@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import {
   Text,
 } from '@chakra-ui/react';
@@ -21,7 +21,11 @@ const initStack = () => {
 function Home() {
   const [terminalInput, setTerminalInput] = useState('');
   const [inputStack, setInputStack] = useState([...initStack()]);
-  const bottomRef = useRef(null);
+  const pageBottomRef = useRef(null);
+
+  useEffect(() => {
+    pageBottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [inputStack]);
 
   const clearInput = () => {
     setInputStack([]);
@@ -51,7 +55,6 @@ function Home() {
     tmpStack.push(<Text> </Text>);
     setInputStack([...inputStack, ...tmpStack]);
     setTerminalInput('');
-    bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
@@ -59,7 +62,7 @@ function Home() {
       <TerminalTitle />
       {inputStack}
       <TerminalDefaultPromptInput onSubmit={(e) => onInputSubmit(e)} onInputChange={(e) => setTerminalInput(e.target.value)} inputValue={terminalInput} location='Home' />
-      <div ref={bottomRef} />
+      <div ref={pageBottomRef} style={{ height: '30px' }} />
     </Default>
   );
 }
