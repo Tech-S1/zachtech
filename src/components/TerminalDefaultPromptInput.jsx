@@ -16,12 +16,12 @@ function TerminalDefaultPromptInput({
         <Text>
           <PromptBody location={location} />
           {' '}
-          <PromptInput><Input value={inputValue} onChange={onInputChange} autoFocus variant='unstyled' w='calc(100vw - 430px) ' /></PromptInput>
+          <PromptInput><Input placeholder='Type a command...' value={inputValue} onChange={onInputChange} autoFocus variant='unstyled' w='calc(100vw - 430px) ' /></PromptInput>
         </Text>
       </Show>
       <Show below='750px'>
         <Text><PromptBody location={location} /></Text>
-        <Text><PromptInput><Input value={inputValue} onChange={onInputChange} autoFocus variant='unstyled' w='calc(100vw - 110px)' /></PromptInput></Text>
+        <Text><PromptInput><Input placeholder='Type a command...' value={inputValue} onChange={onInputChange} autoFocus variant='unstyled' w='calc(100vw - 110px)' /></PromptInput></Text>
       </Show>
     </form>
   );
