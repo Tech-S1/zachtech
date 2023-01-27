@@ -5,7 +5,7 @@ import {
 } from '@chakra-ui/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faReact, faJava, faJs, faDocker, faAws, faGithub,
+  faReact, faJava, faJs, faDocker, faAws, faGithub, faLinkedin,
 } from '@fortawesome/free-brands-svg-icons';
 import { ExternalLinkIcon } from '@chakra-ui/icons';
 
@@ -21,6 +21,15 @@ function ProfileCommand() {
           <FontAwesomeIcon icon={faGithub} size="lg" width='20px' />
           {' '}
           Github
+          <ExternalLinkIcon paddingBottom='3px' />
+        </Link>
+      </Text>
+      <Text>
+        <Link href='https://www.linkedin.com/in/zach-sproston-1244a3136/?originalSubdomain=uk' isExternal>
+          {'   '}
+          <FontAwesomeIcon icon={faLinkedin} size="lg" width='20px' />
+          {' '}
+          LinkedIn
           <ExternalLinkIcon paddingBottom='3px' />
         </Link>
       </Text>
