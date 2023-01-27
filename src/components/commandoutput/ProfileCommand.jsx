@@ -16,8 +16,8 @@ function ProfileCommand() {
       <Text> </Text>
       <Text>🔗 Links:</Text>
       <Text>
+        {'   '}
         <Link href='https://github.com/Tech-S1' isExternal>
-          {'   '}
           <FontAwesomeIcon icon={faGithub} size="lg" width='20px' />
           {' '}
           Github
@@ -25,8 +25,8 @@ function ProfileCommand() {
         </Link>
       </Text>
       <Text>
+        {'   '}
         <Link href='https://www.linkedin.com/in/zach-sproston-1244a3136/?originalSubdomain=uk' isExternal>
-          {'   '}
           <FontAwesomeIcon icon={faLinkedin} size="lg" width='20px' />
           {' '}
           LinkedIn
