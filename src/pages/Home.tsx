@@ -8,6 +8,7 @@ import { HelpCommandText } from '../components/text/TextOutputOther'
 import TextOutputProfile from '../components/text/TextOutputProfile'
 import Overlay from '../layouts/Overlay'
 import { useLoaderData } from 'react-router-dom'
+import Pong from '../components/Pong'
 
 const initStack = (): JSX.Element[] => [
   <>
@@ -86,8 +87,13 @@ const Home = () => {
   return (
     <Default pageName={title}>
       {overlayCommand ? (
-        <Overlay dismissKey="q" dismiss={() => setOverlayCommand('')}>
-          <div>test</div>
+        <Overlay
+          dismissKey="q"
+          dismiss={() => {
+            setOverlayCommand('')
+          }}
+        >
+          <Pong />
         </Overlay>
       ) : (
         <>
