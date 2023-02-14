@@ -49,6 +49,13 @@ const tech = [
   },
 ]
 
+const certs = [
+  {
+    name: 'AWS Cloud Practitioner',
+    icon: faAws,
+  },
+]
+
 const ProfileLink = ({
   website,
   link,
@@ -68,6 +75,19 @@ const ProfileLink = ({
 )
 
 const ProfileTech = ({
+  name,
+  icon,
+}: {
+  name: string
+  icon: IconDefinition
+}) => (
+  <Text>
+    {DEFAULT_SPACING_ICONS}
+    <FontAwesomeIcon icon={icon} size="lg" width="20px" /> {name}
+  </Text>
+)
+
+const ProfileCert = ({
   name,
   icon,
 }: {
@@ -108,6 +128,11 @@ const TextOutputProfile = () => (
       icon="💻"
       title="Technologies"
       mappedValues={tech.map(ProfileTech)}
+    />
+    <ProfileSection
+      icon="📕"
+      title="Certifications"
+      mappedValues={certs.map(ProfileCert)}
     />
   </>
 )
