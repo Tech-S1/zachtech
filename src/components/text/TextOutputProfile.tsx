@@ -7,11 +7,14 @@ import {
   faDocker,
   faAws,
   faGithub,
-  faLinkedin,
+  faLinkedinIn,
   IconDefinition,
 } from '@fortawesome/free-brands-svg-icons'
 import { ExternalLinkIcon } from '@chakra-ui/icons'
-import { DEFAULT_SPACING_ICONS, DEFAULT_TEXT_EMPTY } from './constants'
+import { DEFAULT_TEXT_EMPTY } from './constants'
+import { Icon, IconifyIcon } from '@iconify/react'
+import kubernetesIcon from '@iconify/icons-mdi/kubernetes'
+import degreeHat from '@iconify/icons-icon-park-twotone/degree-hat'
 
 const links = [
   {
@@ -22,7 +25,7 @@ const links = [
   {
     website: 'LinkedIn',
     link: 'https://www.linkedin.com/in/zach-sproston-1244a3136/?originalSubdomain=uk',
-    icon: faLinkedin,
+    icon: faLinkedinIn,
   },
 ]
 
@@ -36,8 +39,12 @@ const tech = [
     icon: faJs,
   },
   {
-    name: 'Docker/Kubernetes',
+    name: 'Docker',
     icon: faDocker,
+  },
+  {
+    name: 'Kubernetes',
+    icon: kubernetesIcon,
   },
   {
     name: 'AWS',
@@ -54,6 +61,17 @@ const certs = [
     name: 'AWS Cloud Practitioner',
     icon: faAws,
   },
+  {
+    name: 'Kubernetes Administrator (CKA)',
+    icon: kubernetesIcon,
+  },
+]
+
+const education = [
+  {
+    name: 'Digital and Technology Solutions (Aston University)',
+    icon: degreeHat,
+  },
 ]
 
 const ProfileLink = ({
@@ -65,8 +83,7 @@ const ProfileLink = ({
   link: string
   icon: IconDefinition
 }) => (
-  <Text>
-    {DEFAULT_SPACING_ICONS}
+  <Text ml="8">
     <Link href={link} isExternal>
       <FontAwesomeIcon icon={icon} size="lg" width="20px" /> {website}
       <ExternalLinkIcon paddingBottom="3px" />
@@ -74,29 +91,25 @@ const ProfileLink = ({
   </Text>
 )
 
-const ProfileTech = ({
+const ProfileNoLink = ({
   name,
   icon,
 }: {
   name: string
-  icon: IconDefinition
+  icon: IconDefinition | IconifyIcon
 }) => (
-  <Text>
-    {DEFAULT_SPACING_ICONS}
-    <FontAwesomeIcon icon={icon} size="lg" width="20px" /> {name}
-  </Text>
-)
-
-const ProfileCert = ({
-  name,
-  icon,
-}: {
-  name: string
-  icon: IconDefinition
-}) => (
-  <Text>
-    {DEFAULT_SPACING_ICONS}
-    <FontAwesomeIcon icon={icon} size="lg" width="20px" /> {name}
+  <Text ml="8">
+    {'icon' in icon ? (
+      <FontAwesomeIcon icon={icon} size="lg" width="20px" />
+    ) : (
+      <Icon
+        icon={icon}
+        inline={true}
+        style={{ display: 'flex' }}
+        width="20px"
+      />
+    )}{' '}
+    {name}
   </Text>
 )
 
@@ -127,12 +140,17 @@ const TextOutputProfile = () => (
     <ProfileSection
       icon="💻"
       title="Technologies"
-      mappedValues={tech.map(ProfileTech)}
+      mappedValues={tech.map(ProfileNoLink)}
     />
     <ProfileSection
       icon="📕"
       title="Certifications"
-      mappedValues={certs.map(ProfileCert)}
+      mappedValues={certs.map(ProfileNoLink)}
+    />
+    <ProfileSection
+      icon="👨‍🏫"
+      title="Education"
+      mappedValues={education.map(ProfileNoLink)}
     />
   </>
 )
