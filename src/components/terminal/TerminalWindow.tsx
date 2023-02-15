@@ -13,7 +13,7 @@ const TerminalWindow = ({
       fontFamily="Fira Code"
       style={{ whiteSpace: 'pre-wrap' }}
       overflowY="auto"
-      maxHeight="calc(100vh - 150px)"
+      maxHeight="calc(100svh - 150px)"
     >
       {children}
     </Box>

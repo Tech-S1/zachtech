@@ -10,12 +10,12 @@ const Default = ({
   children: string | JSX.Element | JSX.Element[]
   pageName: string
 }) => (
-  <Box w="100vw" p="6" h="100vh" bgGradient="linear(to-r, green.200, pink.500)">
+  <Box w="100vw" p="6" h="100svh">
     <Box
       boxShadow="base"
       rounded="md"
       bg="#282C34"
-      h="calc(100vh - 48px)"
+      h="calc(100svh - 48px)"
       w="calc(100vw - 48px)"
     >
       <TerminalBar pageName={pageName} />
