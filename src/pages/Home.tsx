@@ -66,7 +66,7 @@ const Home = () => {
         <TerminalDefaultPromptInput
           onSubmit={e => onInputSubmit(e)}
           onInputChange={e =>
-            setTerminalInput((e.target as HTMLInputElement).value)
+            setTerminalInput((e.target as HTMLInputElement).value.toLowerCase())
           }
           inputValue={terminalInput}
           location="Home"
