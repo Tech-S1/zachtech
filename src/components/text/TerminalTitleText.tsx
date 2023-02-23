@@ -1,6 +1,5 @@
 import { Text } from '@chakra-ui/react'
 import SizeWrapper from '../../layouts/SizeWrapper'
-import { DEFAULT_TEXT_EMPTY } from './constants'
 
 const TerminalTitleText = () => (
   <>
@@ -41,7 +40,7 @@ const TerminalTitleText = () => (
         </>
       }
     />
-    {DEFAULT_TEXT_EMPTY}
+    <Text> </Text>
   </>
 )
 

@@ -11,7 +11,6 @@ import {
   IconDefinition,
 } from '@fortawesome/free-brands-svg-icons'
 import { ExternalLinkIcon } from '@chakra-ui/icons'
-import { DEFAULT_TEXT_EMPTY } from './constants'
 import { Icon, IconifyIcon } from '@iconify/react'
 import kubernetesIcon from '@iconify/icons-mdi/kubernetes'
 import degreeHat from '@iconify/icons-icon-park-twotone/degree-hat'
@@ -123,7 +122,7 @@ const ProfileSection = ({
   mappedValues: object[]
 }) => (
   <>
-    {DEFAULT_TEXT_EMPTY}
+    <Text> </Text>
     <Text>{`${icon} ${title}:`}</Text>
     {mappedValues}
   </>

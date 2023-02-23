@@ -1,109 +1,78 @@
 import { useRef, useState, useEffect, FormEvent } from 'react'
 import { Text } from '@chakra-ui/react'
 import Default from '../layouts/Default'
-import TerminalTitle from '../components/text/TextOutputTitle'
+import TerminalTitle from '../components/text/TerminalTitleText'
 import TerminalDefaultPromptText from '../components/terminal/TerminalDefaultPromptText'
 import TerminalDefaultPromptInput from '../components/terminal/TerminalDefaultPromptInput'
-import { HelpCommandText } from '../components/text/TextOutputOther'
-import TextOutputProfile from '../components/text/TextOutputProfile'
-import Overlay from '../layouts/Overlay'
+import commands from '../commands/commands'
+import {
+  Command,
+  isActionCommand,
+  isDisplayOnlyCommand,
+} from '../commands/Command'
 import { useLoaderData } from 'react-router-dom'
 
-const initStack = (): JSX.Element[] => [
-  <>
-    <TerminalDefaultPromptText location="Home" text="help" />
-    <HelpCommandText />
-    <Text> </Text>
-  </>,
-]
-
-const commandMapper = (command: string): JSX.Element => {
-  switch (command) {
-    case 'help':
-      return <HelpCommandText />
-    case 'profile':
-      return <TextOutputProfile />
-    case 'pong':
-      if (window.innerWidth < 750) {
-        return <Text>Bigger window needed for this game, Sorry.</Text>
-      }
-      break
-    default:
-      return (
-        <>
-          <Text>Unknown Command.</Text>
-          <Text>Type help for all commands.</Text>
-        </>
-      )
-  }
-  return <></>
-}
+const commandMapper = (userCommand: string): Command =>
+  commands.filter(systemCommand => systemCommand.command === userCommand)[0]
 
 const Home = () => {
   const { title } = useLoaderData() as { title: string }
   const [terminalInput, setTerminalInput] = useState<string>('')
-  const [inputStack, setInputStack] = useState<JSX.Element[]>(initStack())
-  const [overlayCommand, setOverlayCommand] = useState<string>('')
+  const [inputStack, setInputStack] = useState<JSX.Element[]>([])
   const pageBottomRef = useRef<null | HTMLDivElement>(null)
 
   useEffect(() => {
     pageBottomRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [inputStack])
 
-  const clearInput = () => {
-    setInputStack([])
-    setTerminalInput('')
-  }
-
-  const commandExecutor = (command: string) => {
-    switch (command) {
-      case 'pong':
-        setOverlayCommand('pong')
-        break
-      default:
-        return
-    }
-  }
-
   const onInputSubmit = (e: FormEvent) => {
     e.preventDefault()
-    if (terminalInput === 'clear') {
-      clearInput()
-      return
+    const command = commandMapper(terminalInput)
+
+    if (command && isDisplayOnlyCommand(command)) {
+      const tmpStack: JSX.Element[] = []
+      tmpStack.push(
+        <TerminalDefaultPromptText location="Home" text={terminalInput} />
+      )
+      tmpStack.push(command.jsx)
+
+      tmpStack.push(<Text> </Text>)
+      setInputStack([...inputStack, ...tmpStack])
     }
 
-    const tmpStack: JSX.Element[] = []
-    tmpStack.push(
-      <TerminalDefaultPromptText location="Home" text={terminalInput} />
-    )
-    tmpStack.push(commandMapper(terminalInput))
-    commandExecutor(terminalInput)
-    tmpStack.push(<Text> </Text>)
-    setInputStack([...inputStack, ...tmpStack])
+    if (command && isActionCommand(command)) {
+      command.executor({ setTerminalInput, setInputStack })
+    }
+
+    if (!command) {
+      const tmpStack: JSX.Element[] = []
+      tmpStack.push(
+        <TerminalDefaultPromptText location="Home" text={terminalInput} />
+      )
+      tmpStack.push(<Text>Command Not Found: Type 'help' for help menu </Text>)
+
+      tmpStack.push(<Text> </Text>)
+      setInputStack([...inputStack, ...tmpStack])
+    }
+
     setTerminalInput('')
   }
 
   return (
     <Default pageName={title}>
-      {overlayCommand ? (
-        <Overlay dismissKey="q" dismiss={() => setOverlayCommand('')}>
-          <div>test</div>
-        </Overlay>
-      ) : (
-        <>
-          <TerminalTitle />
-          {inputStack}
-          <TerminalDefaultPromptInput
-            onSubmit={e => onInputSubmit(e)}
-            onInputChange={e =>
-              setTerminalInput((e.target as HTMLInputElement).value)
-            }
-            inputValue={terminalInput}
-            location="Home"
-          />
-          <div ref={pageBottomRef} style={{ height: '30px' }} />
-        </>
-      )}
+      <>
+        <TerminalTitle />
+        {inputStack}
+        <TerminalDefaultPromptInput
+          onSubmit={e => onInputSubmit(e)}
+          onInputChange={e =>
+            setTerminalInput((e.target as HTMLInputElement).value)
+          }
+          inputValue={terminalInput}
+          location="Home"
+        />
+        <div ref={pageBottomRef} style={{ height: '30px' }} />
+      </>
     </Default>
   )
 }
