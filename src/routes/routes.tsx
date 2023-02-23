@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom'
 import Home from '../pages/Home'
 import CommandViewOnly from '../pages/CommandViewOnly'
-import { profile } from '../commands/commands'
+import { profile, projects } from '../commands/commands'
 
 const routes = [
   {
@@ -14,6 +14,13 @@ const routes = [
     element: <CommandViewOnly command={profile} />,
     loader: () => ({
       title: 'Profile',
+    }),
+  },
+  {
+    path: '/projects',
+    element: <CommandViewOnly command={projects} />,
+    loader: () => ({
+      title: 'Projects',
     }),
   },
 ]

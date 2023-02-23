@@ -1,5 +1,6 @@
 import { Text } from '@chakra-ui/react'
 import TextOutputProfile from '../components/text/TextOutputProfile'
+import TextOutputProjects from '../components/text/TextOutputProjects'
 import { ActionCommand, Command, DisplayOnlyCommand } from './Command'
 
 const profile: DisplayOnlyCommand = {
@@ -7,6 +8,13 @@ const profile: DisplayOnlyCommand = {
   command: 'profile',
   description: 'Display Profile',
   jsx: <TextOutputProfile />,
+}
+
+const projects: DisplayOnlyCommand = {
+  type: 'DisplayOnlyCommand',
+  command: 'projects',
+  description: 'Display Projects',
+  jsx: <TextOutputProjects />,
 }
 
 const clear: ActionCommand = {
@@ -25,7 +33,7 @@ const clear: ActionCommand = {
   },
 }
 
-const commands = [profile, clear]
+const commands = [profile, clear, projects]
 
 const help: DisplayOnlyCommand = {
   type: 'DisplayOnlyCommand',
@@ -43,5 +51,5 @@ const help: DisplayOnlyCommand = {
   ),
 }
 
-export { profile, clear, help }
+export { profile, clear, help, projects }
 export default [...commands, help]

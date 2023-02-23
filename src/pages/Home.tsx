@@ -71,7 +71,7 @@ const Home = () => {
           inputValue={terminalInput}
           location="Home"
         />
-        <div ref={pageBottomRef} style={{ height: '30px' }} />
+        <div ref={pageBottomRef} style={{ height: '50px' }} />
       </>
     </Default>
   )
