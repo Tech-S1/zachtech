@@ -1,5 +1,4 @@
-import { Link, Text } from '@chakra-ui/react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Text } from '@chakra-ui/react'
 import {
   faReact,
   faJava,
@@ -8,38 +7,38 @@ import {
   faAws,
   faGithub,
   faLinkedinIn,
-  IconDefinition,
 } from '@fortawesome/free-brands-svg-icons'
-import { ExternalLinkIcon } from '@chakra-ui/icons'
-import { Icon, IconifyIcon } from '@iconify/react'
 import kubernetesIcon from '@iconify/icons-mdi/kubernetes'
 import degreeHat from '@iconify/icons-icon-park-twotone/degree-hat'
+import { DisplayItem, DisplaySection } from '../DisplayItems'
+import { faMicroscope } from '@fortawesome/free-solid-svg-icons'
+import { IconDefinition } from '@fortawesome/fontawesome-common-types'
 
 const links = [
   {
-    website: 'Github',
+    name: 'Github',
     link: 'https://github.com/Tech-S1',
-    icon: faGithub,
+    icon: faGithub as IconDefinition,
   },
   {
-    website: 'LinkedIn',
+    name: 'LinkedIn',
     link: 'https://www.linkedin.com/in/zach-sproston-1244a3136/?originalSubdomain=uk',
-    icon: faLinkedinIn,
+    icon: faLinkedinIn as IconDefinition,
   },
 ]
 
 const tech = [
   {
     name: 'Java',
-    icon: faJava,
+    icon: faJava as IconDefinition,
   },
   {
     name: 'JavaScript',
-    icon: faJs,
+    icon: faJs as IconDefinition,
   },
   {
     name: 'Docker',
-    icon: faDocker,
+    icon: faDocker as IconDefinition,
   },
   {
     name: 'Kubernetes',
@@ -47,22 +46,39 @@ const tech = [
   },
   {
     name: 'AWS',
-    icon: faAws,
+    icon: faAws as IconDefinition,
   },
   {
     name: 'React',
-    icon: faReact,
+    icon: faReact as IconDefinition,
   },
 ]
 
 const certs = [
   {
+    name: 'ISTQB Certified Tester (Foundation)',
+    icon: faMicroscope as IconDefinition,
+    link: 'https://www.istqb.org/certifications/certified-tester-foundation-level',
+  },
+  {
+    name: 'ISTQB Certified Tester (Agile)',
+    icon: faMicroscope as IconDefinition,
+    link: 'https://www.istqb.org/certifications/agile-tester',
+  },
+  {
+    name: 'ASTQB Certified Tester (Mobile)',
+    icon: faMicroscope as IconDefinition,
+    link: 'https://astqb.org/certifications/mobile-tester-certification',
+  },
+  {
     name: 'AWS Cloud Practitioner',
-    icon: faAws,
+    icon: faAws as IconDefinition,
+    link: 'https://aws.amazon.com/certification/certified-cloud-practitioner',
   },
   {
     name: 'Kubernetes Administrator (CKA)',
     icon: kubernetesIcon,
+    link: 'https://training.linuxfoundation.org/certification/certified-kubernetes-administrator-cka',
   },
 ]
 
@@ -70,86 +86,32 @@ const education = [
   {
     name: 'Digital and Technology Solutions (Aston University)',
     icon: degreeHat,
+    link: 'https://www.aston.ac.uk/study/courses/digital-and-technology-solutions-bsc-degree-apprenticeship',
   },
 ]
-
-const ProfileLink = ({
-  website,
-  link,
-  icon,
-}: {
-  website: string
-  link: string
-  icon: IconDefinition
-}) => (
-  <Text ml="8">
-    <Link href={link} isExternal>
-      <FontAwesomeIcon icon={icon} size="lg" width="20px" /> {website}
-      <ExternalLinkIcon paddingBottom="3px" />
-    </Link>
-  </Text>
-)
-
-const ProfileNoLink = ({
-  name,
-  icon,
-}: {
-  name: string
-  icon: IconDefinition | IconifyIcon
-}) => (
-  <Text ml="8">
-    {'icon' in icon ? (
-      <FontAwesomeIcon icon={icon} size="lg" width="20px" />
-    ) : (
-      <Icon
-        icon={icon}
-        inline={true}
-        style={{ display: 'flex' }}
-        width="20px"
-      />
-    )}{' '}
-    {name}
-  </Text>
-)
-
-const ProfileSection = ({
-  icon,
-  title,
-  mappedValues,
-}: {
-  icon: string
-  title: string
-  mappedValues: object[]
-}) => (
-  <>
-    <Text> </Text>
-    <Text>{`${icon} ${title}:`}</Text>
-    {mappedValues}
-  </>
-)
 
 const TextOutputProfile = () => (
   <>
     <Text>👨🏻‍💻 Zach Sproston - Software Engineer</Text>
-    <ProfileSection
+    <DisplaySection
       icon="🔗"
       title="Links"
-      mappedValues={links.map(ProfileLink)}
+      mappedValues={links.map(DisplayItem)}
     />
-    <ProfileSection
+    <DisplaySection
       icon="💻"
       title="Technologies"
-      mappedValues={tech.map(ProfileNoLink)}
+      mappedValues={tech.map(DisplayItem)}
     />
-    <ProfileSection
+    <DisplaySection
       icon="📕"
       title="Certifications"
-      mappedValues={certs.map(ProfileNoLink)}
+      mappedValues={certs.map(DisplayItem)}
     />
-    <ProfileSection
+    <DisplaySection
       icon="👨‍🏫"
       title="Education"
-      mappedValues={education.map(ProfileNoLink)}
+      mappedValues={education.map(DisplayItem)}
     />
   </>
 )

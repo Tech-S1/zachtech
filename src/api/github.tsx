@@ -1,5 +1,5 @@
-const GITHUB_URL = 'https://api.github.com'
-const GITHUB_USERNAME = 'Tech-S1'
+const URL = 'https://api.github.com'
+const USERNAME = 'Tech-S1'
 
 type GithubUserRepoData = {
   name: string
@@ -9,7 +9,7 @@ type GithubUserRepoData = {
 }
 
 const getUserRepos = () =>
-  fetch(`${GITHUB_URL}/users/${GITHUB_USERNAME}/repos`)
+  fetch(`${URL}/users/${USERNAME}/repos`)
     .then(response => {
       if (!response.ok) {
         throw new Error('HTTP status for Github user repos' + response.status)
