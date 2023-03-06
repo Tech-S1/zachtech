@@ -1,4 +1,4 @@
-import { Text } from '@chakra-ui/react'
+import { Spinner, Text } from '@chakra-ui/react'
 import { faJs } from '@fortawesome/free-brands-svg-icons'
 import { getUserRepos, GithubUserRepoData } from '../../api/github'
 import { useEffect, useState } from 'react'
@@ -15,7 +15,7 @@ const mapLanguageToIcon = (text: string | null) => {
 }
 
 const TextOutputProjects = () => {
-  const [repoData, setRepoData] = useState<GithubUserRepoData[]>([])
+  const [repoData, setRepoData] = useState<GithubUserRepoData[]>()
 
   useEffect(() => {
     getUserRepos().then(data => setRepoData(data))
@@ -27,14 +27,22 @@ const TextOutputProjects = () => {
       <DisplaySection
         icon="👨🏻‍💻"
         title="GitHub"
-        mappedValues={repoData
-          .map(data => ({
-            icon: mapLanguageToIcon(data.language),
-            name: data.name,
-            link: data.html_url,
-            description: data.description,
-          }))
-          .map(DisplayItem)}
+        mappedValues={
+          repoData === undefined ? (
+            <Text ml="8">
+              Loading <Spinner size="xs" />
+            </Text>
+          ) : (
+            repoData
+              .map(data => ({
+                icon: mapLanguageToIcon(data.language),
+                name: data.name,
+                link: data.html_url,
+                description: data.description,
+              }))
+              .map(DisplayItem)
+          )
+        }
       />
     </>
   )

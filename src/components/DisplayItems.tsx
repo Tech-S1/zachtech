@@ -55,7 +55,7 @@ const DisplaySection = ({
 }: {
   icon: string
   title: string
-  mappedValues: object[]
+  mappedValues: object[] | string | JSX.Element | JSX.Element[]
 }) => (
   <>
     <Text> </Text>
