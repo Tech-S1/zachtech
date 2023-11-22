@@ -14,6 +14,16 @@ const mapLanguageToIcon = (text: string | null) => {
   }
 }
 
+const corporate = [
+  {
+    icon: arrowRightAltRounded,
+    name: 'Capgemini',
+    description: 'All my work repos are closed source',
+  },
+]
+
+const gitHubListExclusions = ['bake-app']
+
 const TextOutputProjects = () => {
   const [repoData, setRepoData] = useState<GithubUserRepoData[]>()
 
@@ -24,6 +34,11 @@ const TextOutputProjects = () => {
   return (
     <>
       <Text>📚 All My Projects</Text>
+      <DisplaySection
+        icon="👨🏻‍🏫"
+        title="Corporate"
+        mappedValues={corporate.map(DisplayItem)}
+      />
       <DisplaySection
         icon="👨🏻‍💻"
         title="GitHub"
@@ -40,6 +55,7 @@ const TextOutputProjects = () => {
                 link: data.html_url,
                 description: data.description,
               }))
+              .filter(data => gitHubListExclusions.indexOf(data.name) == -1)
               .map(DisplayItem)
           )
         }

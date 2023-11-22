@@ -25,6 +25,16 @@ const Home = () => {
     pageBottomRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [inputStack])
 
+  useEffect(() => {
+    setInputStack([
+      <TerminalDefaultPromptText
+        location="Home"
+        text="# Type 'help' to get a list of commands"
+      />,
+      <Text> </Text>,
+    ])
+  }, [])
+
   const onInputSubmit = (e: FormEvent) => {
     e.preventDefault()
     const command = commandMapper(terminalInput)
