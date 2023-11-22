@@ -11,9 +11,20 @@ import {
 import kubernetesIcon from '@iconify/icons-mdi/kubernetes'
 import degreeHat from '@iconify/icons-icon-park-twotone/degree-hat'
 import { DisplayItem, DisplaySection } from '../DisplayItems'
-import { faMicroscope } from '@fortawesome/free-solid-svg-icons'
+import {
+  faBuilding,
+  faGraduationCap,
+  faMicroscope,
+} from '@fortawesome/free-solid-svg-icons'
 import { IconDefinition } from '@fortawesome/fontawesome-common-types'
 
+const work = [
+  {
+    name: 'Capgemini',
+    link: 'https://www.capgemini.com/gb-en/',
+    icon: faBuilding as IconDefinition,
+  },
+]
 const links = [
   {
     name: 'Github',
@@ -25,6 +36,11 @@ const links = [
     link: 'https://www.linkedin.com/in/zach-sproston-1244a3136/?originalSubdomain=uk',
     icon: faLinkedinIn as IconDefinition,
   },
+  {
+    name: 'Credly (Check out my cert badges!)',
+    link: 'https://www.credly.com/earner/earned',
+    icon: faGraduationCap as IconDefinition,
+  },
 ]
 
 const tech = [
@@ -33,16 +49,16 @@ const tech = [
     icon: faJava as IconDefinition,
   },
   {
+    name: 'Kubernetes',
+    icon: kubernetesIcon,
+  },
+  {
     name: 'JavaScript',
     icon: faJs as IconDefinition,
   },
   {
     name: 'Docker',
     icon: faDocker as IconDefinition,
-  },
-  {
-    name: 'Kubernetes',
-    icon: kubernetesIcon,
   },
   {
     name: 'AWS',
@@ -80,6 +96,11 @@ const certs = [
     icon: kubernetesIcon,
     link: 'https://training.linuxfoundation.org/certification/certified-kubernetes-administrator-cka',
   },
+  {
+    name: 'Kubernetes Application Developer (CKAD)',
+    icon: kubernetesIcon,
+    link: 'https://training.linuxfoundation.org/certification/certified-kubernetes-application-developer-ckad/',
+  },
 ]
 
 const education = [
@@ -93,6 +114,11 @@ const education = [
 const TextOutputProfile = () => (
   <>
     <Text>👨🏻‍💻 Zach Sproston - Software Engineer</Text>
+    <DisplaySection
+      icon="📁"
+      title="Work"
+      mappedValues={work.map(DisplayItem)}
+    />
     <DisplaySection
       icon="🔗"
       title="Links"
