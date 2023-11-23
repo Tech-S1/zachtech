@@ -38,7 +38,7 @@ const links = [
   },
   {
     name: 'Credly (Check out my cert badges!)',
-    link: 'https://www.credly.com/earner/earned',
+    link: 'https://www.credly.com/users/zach-sproston/badges',
     icon: faGraduationCap as IconDefinition,
   },
 ]
